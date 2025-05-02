@@ -10,8 +10,11 @@ dotenv.config()
 const app = express()
 app.use(express.json())
 app.use('/auth/user', authroutes)
-app.use('/nurse', nurseRoute)
+app.use('/auth/nurse', nurseRoute)
 app.use('/user', userRoutes)
+app.use("/nurse", nurseRoute);
+app.use('/auth', authroutes)
+
 
 
 

@@ -56,6 +56,22 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "user"
     },
+    // sugarLevel: {
+    //     type: Number,
+    //     required: false
+    // },
+    // bloodPressure: {
+    //     type: String,
+    //     required: false
+    // },
+    // bloodType: {
+    //     type: String,
+    //     required: false
+    // },
+    // description: {
+    //     type: String,
+    //     required: false
+    // },
     assignedNurse: {
         type: Schema.Types.ObjectId,
         ref: 'Nurse'
