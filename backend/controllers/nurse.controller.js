@@ -82,3 +82,42 @@ export const updateUserDetails = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 };
+
+export const updateProfile = async (req, res) => {
+    const { name, email, yearsOfExperience, username, phoneNo } = req.body;
+    const nurseId = req.user.id;
+  
+    try {
+      const updatedNurse = await Nurse.findByIdAndUpdate(
+        nurseId,
+        { name, email, yearsOfExperience, username, phoneNo },
+        { new: true }
+      );
+  
+      if (!updatedNurse) {
+        return res.status(404).json({ message: "Nurse not found" });
+      }
+  
+      res.status(200).json({ message: "Profile updated", data: updatedNurse });
+    } catch (error) {
+      console.error("Update failed:", error.message);
+      res.status(500).json({ message: "Server error" });
+    }
+  };
+
+
+export const getProfile = async (req, res) => {
+  const nurseId = req.user.id;
+
+  try {
+    const nurse = await Nurse.findById(nurseId).select("-password");
+    if (!nurse) {
+      return res.status(404).json({ message: "Nurse not found" });
+    }
+
+    res.status(200).json({ message: "Nurse profile fetched", data: nurse });
+  } catch (error) {
+    console.error("Failed to get nurse profile:", error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+};
